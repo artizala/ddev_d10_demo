@@ -1,0 +1,14 @@
+name: 'IP Language Negotiation'
+description: 'Detect the user''s language by IP for language negotiation.'
+type: module
+core_version_requirement: ^8 || ^9 || ^10
+package: Location
+# project: ip_language_negotiation
+dependencies:
+  - ip2country:ip2country
+  - drupal:language
+
+# Information added by Drupal.org packaging script on 2023-10-04
+version: '8.x-1.3'
+project: 'ip_language_negotiation'
+datestamp: 1696451348

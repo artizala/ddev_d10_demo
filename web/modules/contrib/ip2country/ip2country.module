@@ -1,0 +1,73 @@
+<?php
+
+/**
+ * @file
+ * Determination of user's Country based on IP.
+ *
+ * This module uses the IP Address that a user is connected from to deduce
+ * the Country where the user is located. This method is not foolproof,
+ * because a user may connect through an anonymizing proxy, or may be in
+ * an unusual case, such as getting service from a neighboring country,
+ * or using an IP block leased from a company in another country.
+ * Additionally, users accessing a server on a local network may be using
+ * an IP that is not assigned to any country (e.g. 192.168.x.x).
+ *
+ * Country determination occurs upon user login. If a country can be
+ * determined from the IP address, the ISO 3166 2-character country code
+ * is stored in the Drupal user.data service object with the key
+ * 'country_iso_code_2'. If no country can be determined, this member is
+ * left unset. More details about how to use this module can be found in
+ * the README.txt.
+ *
+ * The database used is maintained by ARIN, the American Registry for
+ * Internet Numbers (http://www.arin.net/about_us/index.html), which is
+ * one of the 5 official Regional Internet Registries (RIR) responsible
+ * for assigning IP addresses. The claim is the database is 98% accurate,
+ * with most of the problems coming from users in less-developed countries.
+ * Regardless, there's no more-authoritative source of this information.
+ */
+
+use Drupal\Core\Hook\Attribute\LegacyHook;
+use Drupal\Core\Routing\RouteMatchInterface;
+use Drupal\ip2country\Hook\Ip2CountryCronHooks;
+use Drupal\ip2country\Hook\Ip2CountryHelpHooks;
+use Drupal\ip2country\Hook\Ip2CountryUserHooks;
+
+/**
+ * Implements hook_help().
+ */
+#[LegacyHook]
+function ip2country_help($route_name, RouteMatchInterface $route_match) {
+  return \Drupal::service(Ip2CountryHelpHooks::class)->help($route_name, $route_match);
+}
+
+/**
+ * Implements hook_cron().
+ *
+ * Updates the IP to Country database automatically on a periodic
+ * basis. Default period is 1 week.
+ */
+#[LegacyHook]
+function ip2country_cron() {
+  \Drupal::service(Ip2CountryCronHooks::class)->cron();
+}
+
+/**
+ * Implements hook_user_login().
+ *
+ * Detects IP and determines country upon user login.
+ */
+#[LegacyHook]
+function ip2country_user_login($account) {
+  \Drupal::service(Ip2CountryUserHooks::class)->userLogin($account);
+}
+
+/**
+ * Implements hook_user_load().
+ *
+ * Takes care of restoring country data from {users_data}.
+ */
+#[LegacyHook]
+function ip2country_user_load($accounts) {
+  \Drupal::service(Ip2CountryUserHooks::class)->userLoad($accounts);
+}

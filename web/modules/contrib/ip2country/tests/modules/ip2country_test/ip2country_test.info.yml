@@ -1,0 +1,11 @@
+name: ip2country hook tests
+type: module
+description: 'Support module for ip2country tests'
+package: Testing
+dependencies:
+  - ip2country:ip2country
+
+# Information added by Drupal.org packaging script on 2025-02-05
+version: '2.1.1'
+project: 'ip2country'
+datestamp: 1738792298

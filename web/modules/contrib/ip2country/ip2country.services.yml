@@ -1,0 +1,26 @@
+services:
+  ip2country.lookup:
+    class: \Drupal\ip2country\Ip2CountryLookup
+    autowire: true
+  Drupal\ip2country\Ip2CountryLookupInterface: '@ip2country.lookup'
+
+  ip2country.manager:
+    class: \Drupal\ip2country\Ip2CountryManager
+    autowire: true
+  Drupal\ip2country\Ip2CountryManagerInterface: '@ip2country.manager'
+
+  cache_context.ip.country:
+    class: \Drupal\ip2country\Cache\Context\Ip2CountryCacheContext
+    arguments: ['@request_stack', '@ip2country.lookup']
+    tags:
+      - { name: cache.context }
+
+  Drupal\ip2country\Hook\Ip2CountryCronHooks:
+    class: \Drupal\ip2country\Hook\Ip2CountryCronHooks
+    autowire: true
+  Drupal\ip2country\Hook\Ip2CountryHelpHooks:
+    class: \Drupal\ip2country\Hook\Ip2CountryHelpHooks
+    autowire: true
+  Drupal\ip2country\Hook\Ip2CountryUserHooks:
+    class: \Drupal\ip2country\Hook\Ip2CountryUserHooks
+    autowire: true

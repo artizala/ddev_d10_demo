@@ -1,0 +1,10 @@
+ip2country.database_updated:
+  label: 'Ip2Country database updated'
+  category: 'Ip2Country'
+  context_definitions:
+    registry:
+      type: 'string'
+      label: 'The registry used'
+    rows:
+      type: 'integer'
+      label: 'Number of database rows affected'

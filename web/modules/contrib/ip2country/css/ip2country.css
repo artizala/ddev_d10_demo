@@ -1,0 +1,13 @@
+/**
+ * @file
+ * Styles for ip2country module.
+ */
+
+#update-message.status,
+#lookup-message.status {
+  color: green;
+}
+#update-message.error,
+#lookup-message.error {
+  color: red;
+}

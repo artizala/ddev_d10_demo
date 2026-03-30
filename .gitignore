@@ -1,0 +1,21 @@
+# DDEV
+.ddev/.global_commands/
+.ddev/.ssh/
+.ddev/db_snapshots/
+.ddev/.webimageBuild/
+
+# Vendor & dependencies
+/vendor/
+/node_modules/
+
+# Drupal specific
+/web/sites/default/files/
+/web/sites/default/settings.php
+
+# Environment files
+.env
+
+# OS / IDE
+.DS_Store
+.vscode/
+.idea/

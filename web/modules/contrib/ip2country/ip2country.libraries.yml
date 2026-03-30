@@ -1,0 +1,4 @@
+ip2country.settings:
+  css:
+    theme:
+      css/ip2country.css: {}

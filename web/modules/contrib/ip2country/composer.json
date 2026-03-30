@@ -1,0 +1,22 @@
+{
+    "name": "drupal/ip2country",
+    "description": "Determines country the user is located in, based on IP address",
+    "type": "drupal-module",
+    "license": "GPL-2.0-or-later",
+    "homepage": "https://www.drupal.org/project/ip2country",
+    "authors": [
+        {
+            "name": "Tim Rohaly (tr)",
+            "homepage": "https://www.drupal.org/u/tr",
+            "role": "Maintainer"
+        }
+    ],
+    "support": {
+        "issues": "https://www.drupal.org/project/issues/ip2country",
+        "source": "https://git.drupalcode.org/project/ip2country"
+    },
+    "require-dev": {
+        "drupal/rules": "^4.0",
+        "drush/drush": ">=12.5"
+    }
+}

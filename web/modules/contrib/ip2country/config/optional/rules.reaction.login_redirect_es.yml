@@ -1,0 +1,50 @@
+langcode: en
+status: false
+dependencies:
+  enforced:
+    module:
+      - ip2country
+id: login_redirect_es
+label: 'Login redirect - ES'
+events:
+  -
+    event_name: rules_user_login
+description: 'Redirect user to /ES-HOME-PAGE upon logging in from an IP address in Spain.'
+tags:
+  - rules_examples
+config_version: '3'
+expression:
+  id: rules_rule
+  uuid: 77b0948d-d6a7-420f-ae1a-0683ccdeb9ae
+  conditions:
+    id: rules_and
+    uuid: 8cd07a29-0dba-4cfa-a7cf-b61f181a2ae6
+    conditions:
+      -
+        id: rules_condition
+        uuid: d4b2f9aa-27a0-44b4-ba77-0ab5314d74f0
+        context_values:
+          countries:
+            - ES
+        context_mapping: {  }
+        context_processors:
+          countries:
+            rules_tokens: {  }
+        provides_mapping: {  }
+        condition_id: ip2country_user_country
+        negate: false
+  actions:
+    id: rules_action_set
+    uuid: b4413fc9-e522-4b07-a932-9c376e846562
+    actions:
+      -
+        id: rules_action
+        uuid: ed3d0e11-8006-4908-b4c6-33a6c9cada2e
+        context_values:
+          url: /ES-HOME-PAGE
+        context_mapping: {  }
+        context_processors:
+          url:
+            rules_tokens: {  }
+        provides_mapping: {  }
+        action_id: rules_page_redirect

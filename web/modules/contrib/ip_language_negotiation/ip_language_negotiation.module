@@ -1,0 +1,15 @@
+<?php
+
+/**
+ * @file
+ * Main module file for the IP Language Negotiation.
+ */
+
+use Drupal\Core\Form\FormStateInterface;
+
+/**
+ * Implements hook_form_alter() for system_performance_settings form.
+ */
+function ip_language_negotiation_form_system_performance_settings_alter(&$form, FormStateInterface $form_state) {
+  $form['caching']['#description'] = t('Please note: page caching is disabled on the front page by the IP Language Negotiation module.');
+}
