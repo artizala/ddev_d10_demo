@@ -1,0 +1,16 @@
+global-styling:
+  version: VERSION
+  js:
+    js/global.js: {}
+  css:
+    component:
+      css/style.css: {}
+bootstrap:
+  js:
+    /libraries/popperjs/dist/umd/popper.min.js: { weight: -19 }
+    /libraries/bootstrap/dist/js/bootstrap.bundle.min.js: { weight: -20 }
+  css:
+    component:
+      /libraries/bootstrap/dist/css/bootstrap.min.css: {}
+  dependencies:
+    - core/popperjs
