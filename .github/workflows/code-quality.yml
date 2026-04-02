@@ -16,9 +16,9 @@ jobs:
 
       - run: composer install --prefer-dist --no-progress
 
-      - run: composer require --dev drupal/coder squizlabs/php_codesniffer
+      - run: composer require --dev drupal/coder squizlabs/php_codesniffer sirbrillig/phpcs-variable-analysis slevomat/coding-standard squizlabs/php_codesniffer dealerdirect/phpcodesniffer-composer-installer
 
-      - run: ./vendor/bin/phpcs --config-set installed_paths vendor/drupal/coder/coder_sniffer
+      - run: ./vendor/bin/phpcs --config-set installed_paths vendor/drupal/coder/coder_sniffer,vendor/slevomat/coding-standard,vendor/sirbrillig/phpcs-variable-analysis
 
       - run: |
           ./vendor/bin/phpcs \

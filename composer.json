@@ -102,6 +102,7 @@
         }
     },
     "require-dev": {
+        "dealerdirect/phpcodesniffer-composer-installer": "^1.2",
         "drupal/coder": "^9.0",
         "sirbrillig/phpcs-variable-analysis": "^2.13",
         "slevomat/coding-standard": "^8.28",
