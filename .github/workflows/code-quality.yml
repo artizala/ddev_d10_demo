@@ -27,13 +27,6 @@ jobs:
             web/modules/custom \
             web/themes/custom
 
-      - run: |
-          ./vendor/bin/phpcbf \
-            --standard=Drupal,DrupalPractice \
-            --extensions=php,module,inc,install,test,profile,theme \
-            web/modules/custom \
-            web/themes/custom
-
   eslint:
     name: ESLint
     runs-on: ubuntu-latest

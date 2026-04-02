@@ -16,12 +16,6 @@ phpcs:
         web/modules/custom
         web/themes/custom
 
-    - ./vendor/bin/phpcbf
-        --standard=Drupal,DrupalPractice
-        --extensions=php,module,inc,install,test,profile,theme
-        web/modules/custom
-        web/themes/custom
-
 eslint:
   stage: lint
   image: node:18
