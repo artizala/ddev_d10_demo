@@ -1,0 +1,42 @@
+name: Code Quality
+
+on: [push, pull_request]
+
+jobs:
+  phpcs:
+    name: PHPCS
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+
+      - uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.2'
+          tools: composer
+
+      - run: composer install --prefer-dist --no-progress
+
+      - run: composer require --dev drupal/coder squizlabs/php_codesniffer
+
+      - run: ./vendor/bin/phpcs --config-set installed_paths vendor/drupal/coder/coder_sniffer
+
+      - run: |
+          ./vendor/bin/phpcs \
+            --standard=Drupal,DrupalPractice \
+            --extensions=php,module,inc,install,test,profile,theme \
+            web/modules/custom \
+            web/themes/custom
+
+  eslint:
+    name: ESLint
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+
+      - uses: actions/setup-node@v3
+        with:
+          node-version: '18'
+
+      - run: npm install
+
+      - run: npm run lint:js

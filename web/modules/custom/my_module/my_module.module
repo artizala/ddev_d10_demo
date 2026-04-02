@@ -1,0 +1,18 @@
+<?php
+
+/**
+ * @file
+ * Missing docblock — PHPCS will flag this.
+ */
+
+/**
+ * Implements hook_bad_function().
+ */
+function my_module_bad_function($param1, $param2) {
+  // No spaces around operators.
+  $x = 1 + 2;
+  // No space before brace.
+  if ($x == 3) {
+    echo "bad";
+  }
+}

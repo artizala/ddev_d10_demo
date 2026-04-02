@@ -1,0 +1,60 @@
+<?php
+
+/**
+ * @file
+ * Contains hooks for the Email TFA module install.
+ */
+
+/**
+ * Add default value to security_code_length.
+ */
+function email_tfa_update_8001() {
+  $config = \Drupal::configFactory()->getEditable('email_tfa.settings');
+  $config->set('security_code_length', 4);
+  $config->save();
+}
+
+/**
+ * Add default configurable messaging values.
+ */
+function email_tfa_update_8002() {
+  $config = \Drupal::configFactory()->getEditable('email_tfa.settings');
+  $config->set('security_code_label_text', 'One-time security code');
+  $config->set('security_code_description_text', 'We sent you an email containing your one-time security code. Please enter the code provided to proceed.');
+  $config->set('security_code_verify_text', 'Verify');
+  $config->set('verification_succeeded_message', 'One-time security code verification succeeded.');
+  $config->set('verification_failed_message', 'One-time security code verification failed.');
+  $config->save();
+}
+
+/**
+ * Add a default value to the new field role_exclusion_type.
+ */
+function email_tfa_update_8003() {
+  $config = \Drupal::configFactory()->getEditable('email_tfa.settings');
+  $config->set('role_exclusion_type', 'disable_for');
+  $config->save();
+}
+
+/**
+ * Add a default value to the new field role_exclusion_type.
+ */
+function email_tfa_update_8004() {
+  $config = \Drupal::configFactory()->getEditable('email_tfa.settings');
+  $config->set('dev_mode', FALSE);
+  $config->set('security_code_resend_text', 'Resend');
+  $config->set('verification_not_authorized_message', 'You are not authorized to access this page.');
+  $config->clear('security_code_interrupt_text');
+  $config->clear('verification_interrupted_message');
+  $config->save();
+}
+
+/**
+ * Add default flood control values.
+ */
+function email_tfa_update_8005() {
+  $config = \Drupal::configFactory()->getEditable('email_tfa.settings');
+  $config->set('flood_threshold', 5);
+  $config->set('flood_window', 3600);
+  $config->save();
+}

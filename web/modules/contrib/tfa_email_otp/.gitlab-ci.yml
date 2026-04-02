@@ -1,0 +1,57 @@
+################
+# DrupalCI GitLabCI template
+#
+# Gitlab-ci.yml to replicate DrupalCI testing for Contrib
+#
+# With thanks to:
+#   * The GitLab Acceleration Initiative participants
+#   * DrupalSpoons
+################
+
+################
+# Guidelines
+#
+# This template is designed to give any Contrib maintainer everything they need to test, without requiring modification. It is also designed to keep up to date with Core Development automatically through the use of include files that can be centrally maintained.
+#
+# However, you can modify this template if you have additional needs for your project.
+################
+
+################
+# Includes
+################
+include:
+  ################
+  # DrupalCI includes:
+  # As long as you include this, any future includes added by the Drupal Association will be accessible to your pipelines automatically.
+  # View these include files at https://git.drupalcode.org/project/gitlab_templates/
+  ################
+  - project: $_GITLAB_TEMPLATES_REPO
+    ref: $_GITLAB_TEMPLATES_REF
+    file:
+      - '/includes/include.drupalci.main.yml'
+      # EXPERIMENTAL: For Drupal 7, remove the above line and uncomment the below.
+      # - '/includes/include.drupalci.main-d7.yml'
+      - '/includes/include.drupalci.variables.yml'
+      - '/includes/include.drupalci.workflows.yml'
+
+################
+# GitLab Pages.
+# This builds and publishes the docs on:
+#   https://<project>.pages.drupalcode.org/
+################
+pages:
+  stage: .post
+  image: python:latest
+  script:
+    - pip install mkdocs-material
+    - mkdocs build --site-dir public
+    - echo "Pages accessible through ${CI_PAGES_URL}"
+  artifacts:
+    paths:
+      - public
+
+################
+# Pipeline configuration variables
+################
+variables:
+  SYMFONY_DEPRECATIONS_HELPER: disabled

@@ -1,0 +1,84 @@
+<?php
+
+/**
+ * @file
+ * Tfa_email_otp install hooks file.
+ */
+
+/**
+ * Update plugin name and user data.
+ */
+function tfa_email_otp_install() {
+  /** @var \Drupal\Core\Config\Config $config */
+  $config = \Drupal::configFactory()->getEditable('tfa.settings');
+  $old_plugin = 'tfa_email_code';
+  $new_plugin = 'tfa_email_otp';
+
+  // Update allowed_validation_plugins.
+  $allowed_validation_plugins = $config->get('allowed_validation_plugins');
+  if (empty($allowed_validation_plugins) || !array_key_exists($old_plugin, $allowed_validation_plugins)) {
+    // The old email plugin is not allowed.
+    // Nothing need to do.
+    return;
+  }
+
+  $allowed_validation_plugins[$new_plugin] = $new_plugin;
+  unset($allowed_validation_plugins[$old_plugin]);
+  $config->set('allowed_validation_plugins', $allowed_validation_plugins);
+
+  // Update default_validation_plugin.
+  $config->set('default_validation_plugin', str_replace($old_plugin, $new_plugin, $config->get('default_validation_plugin')));
+
+  // Update validation_plugin_settings.
+  $validation_plugins = $config->get('validation_plugin_settings');
+  if ($validation_plugins && array_key_exists($old_plugin, $validation_plugins)) {
+    $validation_plugins[$new_plugin] = $validation_plugins[$old_plugin];
+    unset($validation_plugins[$old_plugin]);
+    $config->set('validation_plugin_settings', $validation_plugins);
+  }
+
+  $config->save(TRUE);
+
+  // Update plugin names in users_data.
+  /** @var \Drupal\user\UserData $user_data */
+  $user_data = \Drupal::service('user.data');
+  $tfa_settings = $user_data->get('tfa', NULL, 'tfa_user_settings');
+
+  if ($tfa_settings && count($tfa_settings)) {
+    foreach ($tfa_settings as $uid => $user_settings) {
+      $changed = FALSE;
+      $plugins = $user_settings['data']['plugins'];
+      $changed_plugins = [];
+      foreach ($plugins as $key => $plugin) {
+        switch ($key) {
+          case $old_plugin:
+            $changed_plugins[$new_plugin] = $new_plugin;
+            $changed = TRUE;
+            break;
+
+          default:
+            $changed_plugins[$key] = $key;
+            break;
+        }
+      }
+      if ($changed) {
+        $user_settings['data']['plugins'] = $changed_plugins;
+        $user_data->set('tfa', $uid, 'tfa_user_settings', $user_settings);
+        // Previous email code data.
+        $pre_data = $user_data->get('tfa', $uid, $old_plugin);
+        if ($pre_data) {
+          $pre_data['enable'] = 1;
+          if (isset($pre_data['email'])) {
+            unset($pre_data['email']);
+          }
+          $user_data->set('tfa', $uid, $new_plugin, $pre_data);
+        }
+        else {
+          $user_data->set('tfa', $uid, $new_plugin, [
+            'enable' => 1,
+          ]);
+        }
+      }
+    }
+  }
+}

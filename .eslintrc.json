@@ -1,0 +1,27 @@
+{
+  "root": true,
+  "parser": "@babel/eslint-parser",
+  "parserOptions": {
+    "requireConfigFile": false,
+    "ecmaVersion": 2020,
+    "sourceType": "script"
+  },
+  "env": {
+    "browser": true,
+    "es6": true
+  },
+  "globals": {
+    "Drupal": "readonly",
+    "drupalSettings": "readonly",
+    "jQuery": "readonly",
+    "once": "readonly"
+  },
+  "rules": {
+    "no-console": "error",
+    "no-unused-vars": "warn",
+    "semi": ["error", "always"],
+    "no-var": "warn",
+    "eqeqeq": "warn",
+    "no-alert": "error"
+  }
+}

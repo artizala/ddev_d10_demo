@@ -1,0 +1,18 @@
+name: TFA Email OTP Plugin
+type: module
+description: A TFA Email OTP plugin working with TFA module.
+core_version_requirement: ^10 || ^11
+package: Security
+configure: tfa.settings
+dependencies:
+  - tfa:tfa
+  - encrypt:encrypt
+test_dependencies:
+  - tfa:tfa
+  - key:key
+  - encrypt:encrypt
+
+# Information added by Drupal.org packaging script on 2026-01-13
+version: '1.0.1'
+project: 'tfa_email_otp'
+datestamp: 1768269423

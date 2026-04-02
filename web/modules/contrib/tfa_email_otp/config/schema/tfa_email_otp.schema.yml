@@ -1,0 +1,17 @@
+tfa.validation.plugin.config.tfa_email_otp:
+  type: mapping
+  label: 'TFA Email OTP settings'
+  mapping:
+    code_validity_period:
+      type: integer
+      label: 'Number of minutes a otp valid'
+    email_setting:
+      type: mapping
+      label: 'Authentication otp email'
+      mapping:
+        subject:
+          type: label
+          label: 'Subject'
+        body:
+          type: text
+          label: 'Message'

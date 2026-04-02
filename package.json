@@ -1,0 +1,18 @@
+{
+  "devDependencies": {
+    "@babel/core": "^7.29.0",
+    "@babel/eslint-parser": "^7.28.6",
+    "eslint": "^8.53.0",
+    "eslint-config-drupal": "^5.0.2",
+    "eslint-config-prettier": "^9.0.0",
+    "eslint-plugin-import": "^2.25.4",
+    "eslint-plugin-no-jquery": "^3.0.2",
+    "eslint-plugin-prettier": "^5.0.1",
+    "eslint-plugin-yml": "^1.8.0",
+    "prettier": "^3.0.0"
+  },
+  "scripts": {
+    "lint:js": "eslint 'web/modules/custom/my_module/**/*.js'",
+    "lint:js:fix": "eslint --fix 'web/modules/custom/my_module/**/*.js'"
+  }
+}

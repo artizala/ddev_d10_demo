@@ -1,0 +1,5 @@
+services:
+  email_tfa.event_subscriber:
+    class: Drupal\email_tfa\EventSubscriber\EmailTfaRouteSubscriber
+    tags:
+      - { name: event_subscriber }

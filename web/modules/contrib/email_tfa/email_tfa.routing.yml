@@ -1,0 +1,29 @@
+email_tfa.settings:
+  path: '/admin/config/people/email-tfa'
+  defaults:
+    _form: '\Drupal\email_tfa\Form\EmailTfaConfigForm'
+    _title: 'Email TFA Settings'
+  requirements:
+    _permission: 'administer email tfa'
+
+email_tfa.email_tfa_login:
+  path: '/tfa/login'
+  defaults:
+    _title: 'Log in'
+    _form: 'Drupal\email_tfa\Form\EmailTfaLoginForm'
+  requirements:
+    _user_is_logged_in: 'FALSE'
+  options:
+    _maintenance_access: TRUE
+
+email_tfa.email_tfa_verify_login:
+  path: '/tfa/verify/{uid}/{hash}'
+  defaults:
+    _title: 'Email tfa verify login'
+    _form: 'Drupal\email_tfa\Form\EmailTfaVerifyLoginForm'
+  requirements:
+    _custom_access: 'Drupal\email_tfa\Form\EmailTfaVerifyLoginForm::access'
+    _user_is_logged_in: 'FALSE'
+  options:
+    _maintenance_access: TRUE
+    no_cache: TRUE
